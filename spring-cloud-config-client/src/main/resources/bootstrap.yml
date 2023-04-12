@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: spring-cloud-config-client
+      profile: dev
+      uri: http://10.3.72.145:8888
+      label: master
