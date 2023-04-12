@@ -1,7 +1,30 @@
+server:
+  port: 8887
+
+user:
+  name: haha			#配置默认值。配置中心有用配置中心的
+
+
 spring:
+  profiles:
+    active: dev		#激活开发环境的配置文件
+
+---
+spring:
+  application:
+    name: config
   cloud:
     config:
-      name: spring-cloud-config-client
-      profile: dev
-      uri: http://10.3.72.145:8888
+      uri: http://localhost:8080	#config服务端的地址
       label: master
+      profile: dev					#开发环境
+
+---
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      uri: http://localhost:8080 	#config服务端的地址
+      label: master
+      profile: prod					#生产环境

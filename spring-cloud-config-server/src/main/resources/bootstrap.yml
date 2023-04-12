@@ -11,6 +11,7 @@ spring:
           search-paths: cloudconfigTest
           username: zx13151512389@163.com
           password: zx17611516103
+          default-label: master
 eureka:
   client:
     serviceUrl:
