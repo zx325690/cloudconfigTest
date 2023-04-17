@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: user-center-consumer
+server:
+  port: 7108
+  connection-timeout: 30s
+  tomcat:
+    min-spare-threads: 100
+    max-threads: 10000
+    max-connections: 20000
+    uri-encoding: UTF-8
+    accept-count: 1000
+eureka:
+  instance:
+    instance-id: http://10.3.72.145:2001
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 6000
+        readTimeout: 6000
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+
+security:
+  oauth2:
+    resource:
+      id: user-center-consumer
+      user-info-uri: http://10.3.72.145:9889/user
+      prefer-token-info: false
+logging:
+  config: classpath:log4j.xml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

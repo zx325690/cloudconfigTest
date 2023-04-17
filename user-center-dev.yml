@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: user-center
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.45.22.45:3306/svolt?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 'Svolt@123'
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 10
+      maxActive: 500
+      minIdle: 3
+      maxWait: 600000
+      removeAbandoned: true
+      removeAbandonedTimeout: 180
+      timeBetweenEvictionRunsMillis: 600000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+  redis:
+    host: 10.45.23.9
+    port: 6379
+    password: "Svolt@123"
+    timeout: 3s
+    lettuce:
+      pool:
+        max-active: 3000
+        max-idle: 100
+        min-idle: 0
+
+server:
+  port: 9002
+  connection-timeout: 5s
+  tomcat:
+    min-spare-threads: 200
+    max-threads: 10000
+    max-connections: 30000
+    uri-encoding: UTF-8
+    accept-count: 1000
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+logging:
+  config: classpath:log4j.xml
+mybatis:
+  config-location: classpath:mybatis-config.xml
