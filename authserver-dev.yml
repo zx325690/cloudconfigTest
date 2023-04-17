@@ -9,7 +9,7 @@ server:
     accept-count: 3000
 eureka:
   instance:
-    instance-id: 10.3.76.25:2001
+    instance-id: 10.3.76.25:2002
 spring:
   application:
     name: authserver
