@@ -1,0 +1,72 @@
+server: 
+  port: 9889
+  connection-timeout: 30000ms
+  tomcat:
+    min-spare-threads: 200
+    max-threads: 3000
+    max-connections: 50000
+    uri-encoding: UTF-8
+    accept-count: 3000
+eureka:
+  instance:
+    instance-id: 10.3.76.25:2001
+spring:
+  application:
+    name: authserver
+  jpa:
+    open-in-view: true
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.3.76.241:3306/hydrogen?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 'qwe.123'
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 10
+      maxActive: 500
+      minIdle: 3
+      maxWait: 600000
+      removeAbandoned: true
+      removeAbandonedTimeout: 180
+      timeBetweenEvictionRunsMillis: 600000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+#  redis:
+#    host: 10.45.23.9
+#    password: "Svolt@123"
+#    port: 6379
+#    database: 2
+#    timeout: 5000ms
+#    lettuce:
+#      pool:
+#        max-active: 10000
+#        max-idle: 100
+#        min-idle: 0
+#  kafka:
+#    bootstrap-servers: 10.45.23.122:9092,10.45.23.223:9092,10.45.23.106:9092
+#    consumer:
+#      group-id: ${MY_POD_NAME}
+#      enable-auto-commit: true
+#      auto-commit-interval: 5s
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      auto-offset-reset: latest
+logging:
+  config: classpath:log4j.xml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

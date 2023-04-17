@@ -15,7 +15,7 @@ spring:
     name: config
   cloud:
     config:
-      uri: http://localhost:8080	#config服务端的地址
+      uri: http://localhost:8888	#config服务端的地址
       label: master
       profile: dev					#开发环境
 
@@ -25,6 +25,16 @@ spring:
     name: config
   cloud:
     config:
-      uri: http://localhost:8080 	#config服务端的地址
+      uri: http://localhost:8888 	#config服务端的地址
       label: master
       profile: prod					#生产环境
+
+eureka:
+  instance:
+    instance-id: spring-cloud-config-client
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 5
+  client:
+    service-url:
+      defaultZone: http://localhost:2001/eureka/

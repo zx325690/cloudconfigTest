@@ -10,7 +10,7 @@ public class UserController {
     @Value("${user.name}")
     private String name;
 
-    @GetMapping("info")
+    @GetMapping("/info")
     public String info(){
         return name;
     }
