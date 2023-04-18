@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: energymanage-center
+#  redis:
+#    host: 10.45.23.9
+#    port: 6379
+#    timeout: 3s
+#    jedis:
+#      pool:
+#        max-wait: -1ms
+#        max-active: 3000
+#        max-idle: 100
+#        min-idle: 0
+#    password: "Svolt@123"
+  jpa:
+    open-in-view: true
+    database: MYSQL
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.3.76.241:3306/hydrogen?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 'qwe.123'
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 10
+      maxActive: 500
+      minIdle: 3
+      maxWait: 600000
+      removeAbandoned: true
+      removeAbandonedTimeout: 180
+      timeBetweenEvictionRunsMillis: 600000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+#  kafka:
+#    bootstrap-servers: 10.45.23.122:9092,10.45.23.223:9092,10.45.23.106:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+server:
+  port: 9101
+  tomcat:
+    min-spare-threads: 200
+    max-threads: 10000
+    max-connections: 20000
+    uri-encoding: UTF-8
+    accept-count: 3000
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+logging:
+  config: classpath:log4j.xml
+#hbase:
+#  zookeeper: ess-cloudtable-zk3-Z5I3eMgn.cloudtable.com:2181,ess-cloudtable-zk2-4AnFxXyy.cloudtable.com:2181,ess-cloudtable-zk1-P3lgK0i1.cloudtable.com:2181
+#  #zookeeper: 10.45.23.145:2181,10.45.23.227:2181,10.45.23.123:2181
+#  clientPort: 2181
+
+
+ok:
+  http:
+    connect-timeout: 30
+    read-timeout: 30
+    write-timeout: 30
+    max-idle-connections: 200
+    keep-alive-duration: 300
