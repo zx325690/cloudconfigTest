@@ -9,7 +9,7 @@ server:
     accept-count: 3000
 eureka:
   instance:
-    instance-id: 10.3.76.25:2002
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 spring:
   application:
     name: authserver
