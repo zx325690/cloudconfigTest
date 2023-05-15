@@ -1,0 +1,68 @@
+server:
+  port: 16001
+  tomcat:
+    min-spare-threads: 200
+    max-threads: 10000
+    max-connections: 20000
+    uri-encoding: UTF-8
+    accept-count: 3000
+spring:
+  application:
+    name: svolt-cloud-api-gateway
+  jpa:
+    open-in-view: true
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  kafka:
+    bootstrap-servers: 10.3.76.241:9092,10.3.76.241:9093,10.3.76.241:9094
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: ${MY_POD_NAME}
+      enable-auto-commit: true
+      auto-commit-interval: 1s
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.3.76.241:3306/hydrogen?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 'qwe.123'
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 10
+      maxActive: 500
+      minIdle: 3
+      maxWait: 600000
+      removeAbandoned: true
+      removeAbandonedTimeout: 180
+      timeBetweenEvictionRunsMillis: 600000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 50
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+  cloud:
+    gateway:
+      default-filters:
+      - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+      x-forwarded:
+        prefix-append: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  config: classpath:log4j.xml
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
